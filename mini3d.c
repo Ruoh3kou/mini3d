@@ -817,14 +817,14 @@ void device_draw_primitive(device_t* device,
 
 	// 剔除正反面
 	if (cull_state & ~CULL_NONE) {
-		vertex_t a, b;
+		vector_t a, b;
 		vector_sub(&a, &p2, &p1);
 		vector_sub(&b, &p3, &p2);
-		vertex_t n;
+		vector_t n;
 		vector_crossproduct(&n, &a, &b);
 		// DX默认情况下顺时针绕序是正面，逆时针是背面
-		if (cull_state & CULL_FRONT && n.pos.z > 0) return;
-		if (cull_state & CULL_BACK && n.pos.z < 0) return;
+		if (cull_state & CULL_FRONT && n.z > 0) return;
+		if (cull_state & CULL_BACK && n.z < 0) return;
 	}
 
 	// 纹理或者色彩绘制
